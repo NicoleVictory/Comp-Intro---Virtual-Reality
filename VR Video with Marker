@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+
+    <title>VR Video</title>
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- import the webpage's javascript file -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <!-- we import arjs version without NFT but with marker + location based support -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script>
+    AFRAME.registerComponent('vidhandler', {
+  // ...
+  init: function () {
+    // Set up initial state and variables.
+    this.toggle = false;
+    this.vid = document.querySelector("#vid")
+    this.vid.pause();
+  },
+  tick:function(){
+    
+if(this.el.object3D.visible == true){
+  if(!this.toggle){
+     this.toggle = true;
+     this.vid.play();
+    }
+  }else{
+  this.toggle = false;
+    this.vid.pause();
+    }
+  }
+}); </script>
+    
+    
+  </head>
+
+    <body style="margin : 0px; overflow: hidden;">
+        <a-scene embedded arjs>
+          <a-assets>
+            <video id="vid" src="https://va.media.tumblr.com/tumblr_rbc1wvNKCx1uj8g4c.mp4" loop="true" crossorigin></video>
+    </a-assets>
+          <a-marker preset="hiro" vidhandler>
+            <a-plane position="0 -4 0" scale="2 2 2" width="2" rotation="-90 0 0" src="#vid"></a-plane>
+          </a-marker>
+      
+        </a-scene>
+    </body>
+</html>
